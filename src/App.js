@@ -1,24 +1,32 @@
-import logo from './logo.svg';
+import { Layout, Button } from 'antd';
+import { Content, Header } from 'antd/lib/layout/layout';
+import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import './App.css';
+import AuthPage from './pages/AuthPage';
+import MainPage from './pages/MainPage';
+import RegisterPage from './pages/RegisterPage';
+
+
 
 function App() {
+  const location = useLocation()
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Layout>
+      <Header>
+        {location.pathname==='/main' && 
+        <Button type='primary'>
+            <Link to='/'>Log out</Link> 
+        </Button>
+        }
+      </Header>
+      <Content style={{minHeight: '100vh', display: 'flex', justifyContent: 'center', marginTop: '100px'}}>
+        <Routes>
+          <Route path='/' element={<AuthPage />} />
+          <Route path='/registration' element={<RegisterPage />} />
+          <Route path='/main' element={<MainPage />} />
+        </Routes>
+      </Content>
+    </Layout>
   );
 }
 
